@@ -1,11 +1,10 @@
 import discord
 from discord.ext import commands
+from googletrans import Translator
 
-intents = discord.Intents.default()
-intents.message_content = True
-intents.members = True
+intents = discord.Intents.all()
 
-bot = commands.Bot(command_prefix='$', intents=intents)
+bot = commands.Bot(command_prefix='!', intents=intents)
 
 @bot.event
 async def on_ready():
@@ -18,10 +17,30 @@ async def hello(ctx):
 @bot.command()
 async def heh(ctx, count_heh = 5):
     await ctx.send("he" * count_heh)
+    
 @bot.event
 async def on_member_join(member):
     await member.send(f"{member} sunucuya hoş geldin.")
 @bot.event
 async def on_message_delete(message):
     print(f"{message.author} : {message.content} : {message.created_at}")
+@bot.command()
+async def cevir(ctx, text):
+    translator = Translator()
+    ceviri = translator.translate(text)
+    await ctx.send(ceviri.text)
+@bot.command()
+async def ban(member,reason,deleteDay,deleteMin):
+    await ban(member,reason,deleteDay,deleteMin)
+@bot.event
+async def on_member_ban(guild,member):
+    await member.send(f"{guild} sunucusundan banlandınız. Bütün eğlenceyi kaçıracaksınız.")
+@bot.command()
+async def unban(member):
+    await unban(member)
+@bot.event
+async def on_member_unban(guild,member):
+    await member.send(f"{guild} sunucusuna olan banınız kaldırılmıştır. Aramıza tekrar hoşgeldiniz")
+
+
 bot.run("TOKEN")
