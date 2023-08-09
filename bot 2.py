@@ -20,4 +20,4 @@ async def poll(ctx, txt):
     pollMessage = ["True",ctx.message]
     await ctx.add_reaction(":thumbsup:")
     await ctx.add_reaction(":thumbsdown:")
-bot.run("MTEzMTI2NDA4MDU4MjI5OTczOQ.GLxwgx.b9NL4epUTWhZLq-NblF1PB37U3XiA8wt--GgeM")
+bot.run("TOKEN")
