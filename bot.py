@@ -1,6 +1,8 @@
 import discord
 from discord.ext import commands
 from googletrans import Translator
+import random
+import os
 
 intents = discord.Intents.all()
 
@@ -30,8 +32,8 @@ async def cevir(ctx, text):
     ceviri = translator.translate(text)
     await ctx.send(ceviri.text)
 @bot.command()
-async def ban(member,reason,deleteDay,deleteMin):
-    await ban(member,reason,deleteDay,deleteMin)
+async def ban(member):
+    await ban(member)
 @bot.event
 async def on_member_ban(guild,member):
     await member.send(f"{guild} sunucusundan banlandınız. Bütün eğlenceyi kaçıracaksınız.")
@@ -41,6 +43,22 @@ async def unban(member):
 @bot.event
 async def on_member_unban(guild,member):
     await member.send(f"{guild} sunucusuna olan banınız kaldırılmıştır. Aramıza tekrar hoşgeldiniz")
-
-
+@bot.command()
+async def sendMeme(ctx):
+    liste = os.listdir("meme")
+    randomMeme = random.choice(liste)
+    fullPlace = "meme/" + randomMeme
+    f = open(fullPlace,"rb")
+    meme = discord.File(f)
+    await ctx.send(file=meme)
+@bot.command()
+async def sendSong(ctx):
+    liste = os.listdir("song")
+    randomSong = random.choice(liste)
+    fullDest = "song/" + randomSong
+    f = open(fullDest,"rb")
+    song = discord.File(f)
+    await ctx.send(file=song)
 bot.run("TOKEN")
+
+
